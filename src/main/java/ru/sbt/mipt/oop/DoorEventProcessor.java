@@ -14,44 +14,24 @@ public class DoorEventProcessor implements SensorEventProcessor {
         if (sensorDoorEvent(event)) {
             for (Room room : smartHome.getRooms()) {
                 for (Door door : room.getDoors()) {
-                    if (door.getId().equals(event.getObjectId())) {
-                        if (event.getType() == DOOR_OPEN) {
-                            changeCondition(room, door, true, "opened.");
-                        } else {
-                            changeCondition(room, door, false, "closed.");
-
-                            // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-                            // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-
-                            if (room.getName().equals("hall")) {
-                                for (Room homeRoom : smartHome.getRooms()) {
-                                    for (Light light : homeRoom.getLights()) {
-                                        light.setOn(false);
-                                        SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                                        sendCommand(command);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    doorProcessing(room, door, event);
                 }
             }
-        } else{
-            // событие не от двери
-            return;
+        }
+    }
+
+    private void doorProcessing(Room room, Door door, SensorEvent event){
+        if (door.getId().equals(event.getObjectId())) {
+            if (event.getType() == DOOR_OPEN) {
+                changeCondition(room, door, true, "opened.");
+            } else {
+                changeCondition(room, door, false, "closed.");
+            }
         }
     }
 
     private boolean sensorDoorEvent(SensorEvent event){
-        if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private static void sendCommand(SensorCommand command) {
-        System.out.println("Pretent we're sending command " + command);
+        return (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED);
     }
 
     private void changeCondition(Room room, Door door, boolean condition, String openess){

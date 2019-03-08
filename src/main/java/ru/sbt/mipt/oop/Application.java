@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import java.io.IOException;
+import java.util.Collection;
 
 public class Application {
 
@@ -16,15 +17,21 @@ public class Application {
     }
 
     private static void processEvents(SmartHome smartHome) {
+        SensorEventCreator eventCreator = new RandomSensorEventCreator();
+        SensorEvent event = eventCreator.getNextSensorEvent();
 
-        SensorEvent event = SensorEventCreator.getNextSensorEvent();
+        Collection<SensorEventProcessor> eventProcessors = EventProcessorCreator.getNewEventProcessors();
 
         while (event != null) {
             System.out.println("Got event: " + event);
-            SensorEventProcessor eventProcessor = EventProcessorCreator.getNewEventProcessor(smartHome, event);
-            eventProcessor.processor(smartHome, event);
 
-            event = SensorEventCreator.getNextSensorEvent();
+            for (SensorEventProcessor oneProcessor : eventProcessors) {
+                oneProcessor.processor(smartHome, event);
+            }
+
+            event = eventCreator.getNextSensorEvent();
         }
     }
+
+
 }

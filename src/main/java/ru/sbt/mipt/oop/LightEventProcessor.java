@@ -14,27 +14,24 @@ public class LightEventProcessor implements SensorEventProcessor {
         if (sensorLightEvent(event)) {
             for (Room room : smartHome.getRooms()) {
                 for (Light light : room.getLights()) {
-                    if (light.getId().equals(event.getObjectId())) {
-                        if (event.getType() == LIGHT_ON) {
-                            changeCondition(room, light, true, "turned on.");
-                        } else {
-                            changeCondition(room, light, false, "turned off.");
-                        }
-                    }
+                    lightProcessing(room, light, event);
                 }
             }
-        } else {
-            // событие не от источника света
-            return;
+        }
+    }
+
+    private void lightProcessing(Room room, Light light, SensorEvent event){
+        if (light.getId().equals(event.getObjectId())) {
+            if (event.getType() == LIGHT_ON) {
+                changeCondition(room, light, true, "turned on.");
+            } else {
+                changeCondition(room, light, false, "turned off.");
+            }
         }
     }
 
     private boolean sensorLightEvent(SensorEvent event){
-        if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF){
-            return true;
-        } else {
-            return false;
-        }
+        return (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF);
     }
 
     private void changeCondition(Room room, Light light, boolean condition, String cond){
