@@ -32,6 +32,4 @@ public class Application {
             event = eventCreator.getNextSensorEvent();
         }
     }
-
-
 }
