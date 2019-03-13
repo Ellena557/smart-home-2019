@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.EventProcessors.SensorEventProcessor;
+
 import java.io.IOException;
 import java.util.Collection;
 

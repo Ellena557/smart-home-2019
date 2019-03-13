@@ -1,9 +1,11 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.Components.Room;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SmartHome {
+public class SmartHome implements Actionable{
     Collection<Room> rooms;
 
     public SmartHome() {
@@ -22,13 +24,14 @@ public class SmartHome {
         return rooms;
     }
 
-    public void turnLightsOff(){
-        for (Room homeRoom : getRooms()) {
-            for (Light light : homeRoom.getLights()) {
-                light.setOn(false);
-                SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                CommandSender.sendCommand(command);
-            }
+    @Override
+    public void execute(Action action){
+        action.executeObj(this);
+
+        //Iterator<Room> roomIter = this.rooms.iterator();
+        for (Room room : rooms) {
+            room.execute(action);
         }
+
     }
 }
