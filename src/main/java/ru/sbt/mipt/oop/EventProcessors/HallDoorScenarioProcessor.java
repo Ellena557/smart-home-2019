@@ -14,14 +14,12 @@ public class HallDoorScenarioProcessor implements SensorEventProcessor {
     @Override
     public void processor(SmartHome smartHome, SensorEvent event) {
 
-        Door helpDoor = new Door(true, "1");
-
         // событие от закрытой двери
         if (sensorDoorClosedEvent(event))
             smartHome.execute(object ->
             {
                 //check either we have reached Door or not
-                if (object.getClass() == helpDoor.getClass()){
+                if (object instanceof Door){
                     if (hallDoorScenarioEvent(smartHome, event, (Door) object )) {
                         TurnLightsOffCommand lightsOffCommand = new TurnLightsOffCommand(smartHome);
                         lightsOffCommand.executeCommand();

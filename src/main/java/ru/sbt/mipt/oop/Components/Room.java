@@ -33,19 +33,7 @@ public class Room implements Actionable {
     public void execute(Action action) {
         action.executeObj(this);
 
-        // Можно через цикл for, можно через Iterator.
-        // Здесь и в классе SmartHome реализовано два раных способа.
-        Iterator<Light> lightIter = this.lights.iterator();
-        Iterator<Door> doorIter = this.doors.iterator();
-
-        while (lightIter.hasNext()) {
-            Light light = lightIter.next();
-            light.execute(action);
-        }
-
-        while (doorIter.hasNext()) {
-            Door door = doorIter.next();
-            door.execute(action);
-        }
+        lights.forEach(light -> light.execute(action));
+        doors.forEach(door -> door.execute(action));
     }
 }

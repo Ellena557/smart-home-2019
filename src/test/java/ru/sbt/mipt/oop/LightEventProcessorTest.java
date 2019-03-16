@@ -16,14 +16,14 @@ public class LightEventProcessorTest {
     public void testOnLightProcessor() throws IOException {
         SmartHome smartHome = homeInitializer.initializeHome();
 
-        //Id of the kitchen
-        String kitchenId = "1";
+        //Id of the kitchen Light
+        String kitchenLightId = "1";
 
-        SensorEvent lightOn = new SensorEvent(SensorEventType.LIGHT_ON, kitchenId);
+        SensorEvent lightOn = new SensorEvent(SensorEventType.LIGHT_ON, kitchenLightId);
 
         LightEventProcessor lightOnProcessor = new LightEventProcessor();
         lightOnProcessor.processor(smartHome, lightOn);
-        boolean lightState = lightIsOn(getLight(smartHome, kitchenId));
+        boolean lightState = (getLight(smartHome, kitchenLightId)).isOn();
 
         assertTrue(lightState);
     }
@@ -32,14 +32,14 @@ public class LightEventProcessorTest {
     public void testOffLightProcessor() throws IOException {
         SmartHome smartHome = homeInitializer.initializeHome();
 
-        //Id of the kitchen
-        String kitchenId = "1";
+        //Id of the kitchen Light
+        String kitchenLightId = "1";
 
-        SensorEvent lightOff = new SensorEvent(SensorEventType.LIGHT_OFF, kitchenId);
+        SensorEvent lightOff = new SensorEvent(SensorEventType.LIGHT_OFF, kitchenLightId);
 
         LightEventProcessor lightOffProcessor = new LightEventProcessor();
         lightOffProcessor.processor(smartHome, lightOff);
-        boolean lightState = lightIsOn(getLight(smartHome, kitchenId));
+        boolean lightState = (getLight(smartHome, kitchenLightId)).isOn();
 
         assertFalse(lightState);
     }
@@ -54,10 +54,6 @@ public class LightEventProcessorTest {
             }
         }
         return null;
-    }
-
-    public static boolean lightIsOn(Light light){
-        return light.isOn();
     }
 }
 

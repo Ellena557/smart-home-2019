@@ -4,7 +4,6 @@ import ru.sbt.mipt.oop.Components.Light;
 import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 
-
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
@@ -15,15 +14,12 @@ public class LightEventProcessor implements SensorEventProcessor {
     @Override
     public void processor(SmartHome smartHome, SensorEvent event) {
 
-        //To identify the class of the object (if it is Light or not)
-        Light helpLight = new Light("5", true);
-
         // событие от источника света
         if (sensorLightEvent(event))
             smartHome.execute(object ->
             {
                 //check either we have reached Light or not
-                if (object.getClass() == helpLight.getClass()){
+                if (object instanceof Light){
                     lightProcessing((Light) object, event);
                 };
             });

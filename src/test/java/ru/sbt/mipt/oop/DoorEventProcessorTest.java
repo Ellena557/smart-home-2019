@@ -17,14 +17,14 @@ public class DoorEventProcessorTest {
     public void testOpeningDoorProcessor() throws IOException {
         SmartHome smartHome = homeInitializer.initializeHome();
 
-        //Id of the kitchen
-        String kitchenId = "1";
+        //Id of the kitchen Door
+        String kitchenDoorId = "1";
 
-        SensorEvent doorOpened = new SensorEvent(SensorEventType.DOOR_OPEN, kitchenId);
+        SensorEvent doorOpened = new SensorEvent(SensorEventType.DOOR_OPEN, kitchenDoorId);
 
         DoorEventProcessor openDoorProcessor = new DoorEventProcessor();
         openDoorProcessor.processor(smartHome, doorOpened);
-        boolean openess = doorOpeness(getDoor(smartHome, kitchenId));
+        boolean openess = doorOpeness(getDoor(smartHome, kitchenDoorId));
 
         assertTrue(openess);
     }
@@ -33,14 +33,14 @@ public class DoorEventProcessorTest {
     public void testClosingDoorProcessor() throws IOException {
         SmartHome smartHome = homeInitializer.initializeHome();
 
-        //Id of the kitchen
-        String kitchenId = "1";
+        //Id of the kitchen Door
+        String kitchenDoorId = "1";
 
-        SensorEvent doorClosed = new SensorEvent(SensorEventType.DOOR_CLOSED, kitchenId);
+        SensorEvent doorClosed = new SensorEvent(SensorEventType.DOOR_CLOSED, kitchenDoorId);
 
         DoorEventProcessor closeDoorProcessor = new DoorEventProcessor();
         closeDoorProcessor.processor(smartHome, doorClosed);
-        boolean openess = doorOpeness(getDoor(smartHome, kitchenId));
+        boolean openess = doorOpeness(getDoor(smartHome, kitchenDoorId));
 
         assertFalse(openess);
     }
