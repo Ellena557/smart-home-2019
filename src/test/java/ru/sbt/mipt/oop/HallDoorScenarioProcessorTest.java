@@ -25,7 +25,7 @@ public class HallDoorScenarioProcessorTest {
         HallDoorScenarioProcessor closeHallDoorProcessor = new HallDoorScenarioProcessor();
         closeHallDoorProcessor.processor(smartHome, hallDoorClosed);
 
-        boolean openess = doorOpeness(getDoor(smartHome, hallDoorId));
+        boolean openess = (getDoor(smartHome, hallDoorId)).isOpened();
 
         assertFalse(openess);
     }
@@ -66,10 +66,6 @@ public class HallDoorScenarioProcessorTest {
             }
         }
         return null;
-    }
-
-    public static boolean doorOpeness(Door door){
-        return door.isOpened();
     }
 
     public boolean checkLightsAreOff(SmartHome smartHome){
