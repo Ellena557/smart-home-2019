@@ -24,7 +24,7 @@ public class DoorEventProcessorTest {
 
         DoorEventProcessor openDoorProcessor = new DoorEventProcessor();
         openDoorProcessor.processor(smartHome, doorOpened);
-        boolean openess = doorOpeness(getDoor(smartHome, kitchenDoorId));
+        boolean openess = (getDoor(smartHome, kitchenDoorId)).isOpened();
 
         assertTrue(openess);
     }
@@ -40,7 +40,7 @@ public class DoorEventProcessorTest {
 
         DoorEventProcessor closeDoorProcessor = new DoorEventProcessor();
         closeDoorProcessor.processor(smartHome, doorClosed);
-        boolean openess = doorOpeness(getDoor(smartHome, kitchenDoorId));
+        boolean openess = (getDoor(smartHome, kitchenDoorId)).isOpened();
 
         assertFalse(openess);
     }
@@ -54,9 +54,5 @@ public class DoorEventProcessorTest {
             }
         }
         return null;
-    }
-
-    public static boolean doorOpeness(Door door){
-        return door.isOpened();
     }
 }
