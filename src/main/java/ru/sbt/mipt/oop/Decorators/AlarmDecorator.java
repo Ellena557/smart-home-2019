@@ -17,10 +17,6 @@ public class AlarmDecorator implements SensorEventProcessor {
 
     private SensorEventProcessor eventProcessor;
 
-    public AlarmDecorator(SensorEventProcessor eventProcessor){
-        this.eventProcessor = eventProcessor;
-    }
-
     @Override
     public void processor(SmartHome smartHome, SensorEvent event) {
         Alarm alarm = smartHome.getAlarm();
