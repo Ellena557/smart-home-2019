@@ -13,8 +13,6 @@ import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
 
 public class AlarmDecorator implements SensorEventProcessor {
 
-    // base decorator
-
     private SensorEventProcessor eventProcessor;
 
     @Override
