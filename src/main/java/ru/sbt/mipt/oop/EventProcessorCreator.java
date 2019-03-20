@@ -1,5 +1,10 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.EventProcessors.DoorEventProcessor;
+import ru.sbt.mipt.oop.EventProcessors.HallDoorScenarioProcessor;
+import ru.sbt.mipt.oop.EventProcessors.LightEventProcessor;
+import ru.sbt.mipt.oop.EventProcessors.SensorEventProcessor;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
