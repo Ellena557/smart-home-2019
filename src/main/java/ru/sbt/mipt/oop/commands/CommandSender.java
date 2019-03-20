@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.commands;
+package ru.sbt.mipt.oop.Commands;
 
 public class CommandSender {
     public static void sendCommand(SensorCommand command) {
