@@ -20,7 +20,7 @@ public class AlarmAlertState implements AlarmState {
     public void deactivateAlarm(String enteredCode) {
         if (enteredCode.equals(this.code)){
 
-            // пароль введен верно, выключаем сигнализацию и серену
+            // пароль введен верно, выключаем сигнализацию и сирену
             AlarmState newState = new AlarmDeactivatedState(alarm);
             alarm.changeState(newState);
             System.out.println("Alarm deactivated");
