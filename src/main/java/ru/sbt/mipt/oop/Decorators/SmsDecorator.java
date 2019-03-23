@@ -31,11 +31,9 @@ public class SmsDecorator implements SensorEventProcessor {
 
         if (alarm.getState() instanceof AlarmDeactivatedState){
             // все в порядке, смс отправлять не нужно
-            // eventProcessor.processor(event);
             return;
         }
         else {
-
             // отправляем смс
             System.out.println("Sending sms");
             return;
