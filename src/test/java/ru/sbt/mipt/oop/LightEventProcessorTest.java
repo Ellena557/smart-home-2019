@@ -21,8 +21,8 @@ public class LightEventProcessorTest {
 
         SensorEvent lightOn = new SensorEvent(SensorEventType.LIGHT_ON, kitchenLightId);
 
-        LightEventProcessor lightOnProcessor = new LightEventProcessor();
-        lightOnProcessor.processor(smartHome, lightOn);
+        LightEventProcessor lightOnProcessor = new LightEventProcessor(smartHome);
+        lightOnProcessor.processor(lightOn);
         boolean lightState = (getLight(smartHome, kitchenLightId)).isOn();
 
         assertTrue(lightState);
@@ -37,8 +37,8 @@ public class LightEventProcessorTest {
 
         SensorEvent lightOff = new SensorEvent(SensorEventType.LIGHT_OFF, kitchenLightId);
 
-        LightEventProcessor lightOffProcessor = new LightEventProcessor();
-        lightOffProcessor.processor(smartHome, lightOff);
+        LightEventProcessor lightOffProcessor = new LightEventProcessor(smartHome);
+        lightOffProcessor.processor(lightOff);
         boolean lightState = (getLight(smartHome, kitchenLightId)).isOn();
 
         assertFalse(lightState);

@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop.AlarmService;
 
 public class AlarmDeactivatedState implements AlarmState {
     private Alarm alarm;
-    private String code;
     private AlarmState state;
 
     public AlarmDeactivatedState(Alarm alarm){
@@ -12,7 +11,7 @@ public class AlarmDeactivatedState implements AlarmState {
 
     @Override
     public void activateAlarm(String enteredCode) {
-        AlarmState newState = new AlarmActivatedState(alarm, enteredCode);
+        AlarmState newState = new AlarmActivatedState(alarm);
         alarm.changeState(newState);
         System.out.println("Alarm activated");
     }
@@ -23,7 +22,7 @@ public class AlarmDeactivatedState implements AlarmState {
     }
 
     @Override
-    public void printAlert() {
+    public void turnOnAlert() {
         // pass
     }
 

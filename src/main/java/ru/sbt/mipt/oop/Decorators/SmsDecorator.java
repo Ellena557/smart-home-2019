@@ -13,12 +13,15 @@ public class SmsDecorator implements SensorEventProcessor {
 
     private SensorEventProcessor eventProcessor;
 
-    SmsDecorator(SensorEventProcessor eventProcessor){
+    private SmartHome smartHome;
+
+    public SmsDecorator(SensorEventProcessor eventProcessor, SmartHome smartHome){
         this.eventProcessor = eventProcessor;
+        this.smartHome = smartHome;
     }
 
     @Override
-    public void processor(SmartHome smartHome, SensorEvent event) {
+    public void processor(SensorEvent event) {
         Alarm alarm = smartHome.getAlarm();
 
         if(!isSensorEvent(event)) {
@@ -28,7 +31,7 @@ public class SmsDecorator implements SensorEventProcessor {
 
         if (alarm.getState() instanceof AlarmDeactivatedState){
             // все в порядке, смс отправлять не нужно
-            eventProcessor.processor(smartHome, event);
+            // eventProcessor.processor(event);
             return;
         }
         else {

@@ -27,7 +27,8 @@ public class AlarmTest {
     @Test
     public void deactivateActivatedTest() throws IOException {
         String alarmCode = "goodpassword";
-        AlarmState currentState = new AlarmActivatedState(alarm, alarmCode);
+        alarm.setCode(alarmCode);
+        AlarmState currentState = new AlarmActivatedState(alarm);
 
         alarm.changeState(currentState);
         alarm.deactivateAlarm(alarmCode);
@@ -40,7 +41,8 @@ public class AlarmTest {
     public void wrongPasswordTest() throws IOException {
         String alarmCode = "goodpassword";
         String wrongCode = "verybadpassword";
-        AlarmState currentState = new AlarmActivatedState(alarm, alarmCode);
+        alarm.setCode(alarmCode);
+        AlarmState currentState = new AlarmActivatedState(alarm);
 
         alarm.changeState(currentState);
         alarm.deactivateAlarm(wrongCode);
@@ -53,7 +55,8 @@ public class AlarmTest {
     public void deactivatedAlertStateTest() throws IOException {
         String alarmCode = "goodpassword";
         String wrongCode = "verybadpassword";
-        AlarmState currentState = new AlarmActivatedState(alarm, alarmCode);
+        alarm.setCode(alarmCode);
+        AlarmState currentState = new AlarmActivatedState(alarm);
 
         alarm.changeState(currentState);
         alarm.deactivateAlarm(wrongCode);
@@ -66,7 +69,8 @@ public class AlarmTest {
     @Test
     public void deactivateDeactivatedTest() throws IOException {
         String alarmCode = "goodpassword";
-        AlarmState currentState = new AlarmActivatedState(alarm, alarmCode);
+        alarm.setCode(alarmCode);
+        AlarmState currentState = new AlarmActivatedState(alarm);
 
         alarm.changeState(currentState);
         alarm.deactivateAlarm(alarmCode);
@@ -79,7 +83,8 @@ public class AlarmTest {
     @Test
     public void activateActivatedTest() throws IOException {
         String alarmCode = "goodpassword";
-        AlarmState currentState = new AlarmActivatedState(alarm, alarmCode);
+        alarm.setCode(alarmCode);
+        AlarmState currentState = new AlarmActivatedState(alarm);
 
         alarm.changeState(currentState);
         alarm.activateAlarm(alarmCode);
@@ -91,7 +96,8 @@ public class AlarmTest {
     @Test
     public void deactivateAlertTest() throws IOException {
         String alarmCode = "goodpassword";
-        AlarmState currentState = new AlarmAlertState(alarm, alarmCode);
+        alarm.setCode(alarmCode);
+        AlarmState currentState = new AlarmAlertState(alarm);
 
         alarm.changeState(currentState);
         alarm.deactivateAlarm(alarmCode);

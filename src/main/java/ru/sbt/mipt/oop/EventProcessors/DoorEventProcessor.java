@@ -10,8 +10,12 @@ public class DoorEventProcessor implements SensorEventProcessor {
 
     private SmartHome smartHome;
 
+    public DoorEventProcessor(SmartHome smartHome){
+        this.smartHome = smartHome;
+    }
+
     @Override
-    public void processor(SmartHome smartHome, SensorEvent event) {
+    public void processor(SensorEvent event) {
 
         // событие от двери
         if (sensorDoorEvent(event))

@@ -29,6 +29,10 @@ public class Alarm {
     }
 
     public void turnOnAlert(){
-        state.printAlert();
+        state.turnOnAlert();
+    }
+
+    public boolean validateCode(String enteredCode){
+        return this.code.equals(enteredCode);
     }
 }

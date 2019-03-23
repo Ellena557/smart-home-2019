@@ -36,16 +36,6 @@ public class SmartHome implements Actionable{
         }
     }
 
-    public void activateAlarm(String code){
-
-        this.alarm.activateAlarm(code);
-    }
-
-    public void deactivateAlarm(String code){
-
-        this.alarm.deactivateAlarm(code);
-    }
-
     public Alarm getAlarm(){
         return alarm;
     }

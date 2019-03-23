@@ -14,8 +14,14 @@ import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 
 public class HallDoorScenarioProcessor implements SensorEventProcessor {
 
+    private SmartHome smartHome;
+
+    public HallDoorScenarioProcessor(SmartHome smartHome){
+        this.smartHome = smartHome;
+    }
+
     @Override
-    public void processor(SmartHome smartHome, SensorEvent event) {
+    public void processor(SensorEvent event) {
 
         // событие от закрытой двери
         if (sensorDoorClosedEvent(event))

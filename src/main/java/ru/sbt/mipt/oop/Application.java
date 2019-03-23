@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.EventCreators.RandomSensorEventCreator;
+import ru.sbt.mipt.oop.EventCreators.SensorEventCreator;
 import ru.sbt.mipt.oop.EventProcessors.SensorEventProcessor;
 
 import java.io.IOException;
@@ -22,13 +24,13 @@ public class Application {
         SensorEventCreator eventCreator = new RandomSensorEventCreator();
         SensorEvent event = eventCreator.getNextSensorEvent();
 
-        Collection<SensorEventProcessor> eventProcessors = EventProcessorCreator.getNewEventProcessors();
+        Collection<SensorEventProcessor> eventProcessors = EventProcessorCreator.getNewEventProcessors(smartHome);
 
         while (event != null) {
             System.out.println("Got event: " + event);
 
             for (SensorEventProcessor oneProcessor : eventProcessors) {
-                oneProcessor.processor(smartHome, event);
+                oneProcessor.processor(event);
             }
 
             event = eventCreator.getNextSensorEvent();

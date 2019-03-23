@@ -1,6 +1,10 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.EventCreators;
 
-public class RandomSensorEventCreator implements SensorEventCreator{
+import ru.sbt.mipt.oop.EventCreators.SensorEventCreator;
+import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.SensorEventType;
+
+public class RandomSensorEventCreator implements SensorEventCreator {
 
     @Override
     public SensorEvent getNextSensorEvent() {

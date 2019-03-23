@@ -5,7 +5,7 @@ public interface AlarmState {
 
     void deactivateAlarm(String enteredCode);
 
-    void printAlert();
+    void turnOnAlert();
 
     AlarmState getCurrentState();
 }

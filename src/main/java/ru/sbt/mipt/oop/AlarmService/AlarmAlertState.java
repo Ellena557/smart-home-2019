@@ -3,12 +3,10 @@ package ru.sbt.mipt.oop.AlarmService;
 public class AlarmAlertState implements AlarmState {
 
     private AlarmState state;
-    private String code;
     private Alarm alarm;
 
-    public AlarmAlertState(Alarm alarm, String code) {
+    public AlarmAlertState(Alarm alarm) {
         this.alarm = alarm;
-        this.code = code;
     }
 
     @Override
@@ -18,7 +16,7 @@ public class AlarmAlertState implements AlarmState {
 
     @Override
     public void deactivateAlarm(String enteredCode) {
-        if (enteredCode.equals(this.code)){
+        if (alarm.validateCode(enteredCode)){
 
             // пароль введен верно, выключаем сигнализацию и сирену
             AlarmState newState = new AlarmDeactivatedState(alarm);
@@ -28,14 +26,14 @@ public class AlarmAlertState implements AlarmState {
             System.out.println("Wrong password entered!");
 
             // пароль введен неверно, остаемся в этом состоянии
-            AlarmState newState = new AlarmAlertState(alarm, this.code);
+            AlarmState newState = new AlarmAlertState(alarm);
             alarm.changeState(newState);
             alarm.turnOnAlert();
         }
     }
 
     @Override
-    public void printAlert() {
+    public void turnOnAlert() {
         System.out.println("Alert!");
     }
 
