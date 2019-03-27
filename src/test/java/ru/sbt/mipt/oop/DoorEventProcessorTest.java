@@ -22,8 +22,8 @@ public class DoorEventProcessorTest {
 
         SensorEvent doorOpened = new SensorEvent(SensorEventType.DOOR_OPEN, kitchenDoorId);
 
-        DoorEventProcessor openDoorProcessor = new DoorEventProcessor();
-        openDoorProcessor.processor(smartHome, doorOpened);
+        DoorEventProcessor openDoorProcessor = new DoorEventProcessor(smartHome);
+        openDoorProcessor.processor(doorOpened);
         boolean openess = (getDoor(smartHome, kitchenDoorId)).isOpened();
 
         assertTrue(openess);
@@ -38,8 +38,8 @@ public class DoorEventProcessorTest {
 
         SensorEvent doorClosed = new SensorEvent(SensorEventType.DOOR_CLOSED, kitchenDoorId);
 
-        DoorEventProcessor closeDoorProcessor = new DoorEventProcessor();
-        closeDoorProcessor.processor(smartHome, doorClosed);
+        DoorEventProcessor closeDoorProcessor = new DoorEventProcessor(smartHome);
+        closeDoorProcessor.processor(doorClosed);
         boolean openess = (getDoor(smartHome, kitchenDoorId)).isOpened();
 
         assertFalse(openess);

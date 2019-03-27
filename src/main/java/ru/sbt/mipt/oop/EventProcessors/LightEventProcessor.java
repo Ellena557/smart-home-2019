@@ -11,8 +11,12 @@ public class LightEventProcessor implements SensorEventProcessor {
 
     private SmartHome smartHome;
 
+    public LightEventProcessor(SmartHome smartHome){
+        this.smartHome = smartHome;
+    }
+
     @Override
-    public void processor(SmartHome smartHome, SensorEvent event) {
+    public void processor(SensorEvent event) {
 
         // событие от источника света
         if (sensorLightEvent(event))

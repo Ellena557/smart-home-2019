@@ -22,8 +22,8 @@ public class HallDoorScenarioProcessorTest {
 
         SensorEvent hallDoorClosed = new SensorEvent(SensorEventType.DOOR_CLOSED, hallDoorId);
 
-        HallDoorScenarioProcessor closeHallDoorProcessor = new HallDoorScenarioProcessor();
-        closeHallDoorProcessor.processor(smartHome, hallDoorClosed);
+        HallDoorScenarioProcessor closeHallDoorProcessor = new HallDoorScenarioProcessor(smartHome);
+        closeHallDoorProcessor.processor(hallDoorClosed);
 
         boolean openess = (getDoor(smartHome, hallDoorId)).isOpened();
 
@@ -37,8 +37,8 @@ public class HallDoorScenarioProcessorTest {
 
         SensorEvent hallDoorClosed = new SensorEvent(SensorEventType.DOOR_CLOSED, hallDoorId);
 
-        HallDoorScenarioProcessor closeHallDoorProcessor = new HallDoorScenarioProcessor();
-        closeHallDoorProcessor.processor(smartHome, hallDoorClosed);
+        HallDoorScenarioProcessor closeHallDoorProcessor = new HallDoorScenarioProcessor(smartHome);
+        closeHallDoorProcessor.processor(hallDoorClosed);
 
         boolean lightsOff = checkLightsAreOff(smartHome);
 

@@ -1,9 +1,12 @@
 package ru.sbt.mipt.oop.EventProcessors;
 
 import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.Commands.CommandSender;
+import ru.sbt.mipt.oop.Commands.CommandType;
+import ru.sbt.mipt.oop.Commands.SensorCommand;
 import ru.sbt.mipt.oop.Components.Door;
+import ru.sbt.mipt.oop.Components.Light;
 import ru.sbt.mipt.oop.Components.Room;
-import ru.sbt.mipt.oop.commands.TurnLightsOffCommand;
 
 import java.util.Collection;
 
@@ -11,8 +14,14 @@ import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 
 public class HallDoorScenarioProcessor implements SensorEventProcessor {
 
+    private SmartHome smartHome;
+
+    public HallDoorScenarioProcessor(SmartHome smartHome){
+        this.smartHome = smartHome;
+    }
+
     @Override
-    public void processor(SmartHome smartHome, SensorEvent event) {
+    public void processor(SensorEvent event) {
 
         // событие от закрытой двери
         if (sensorDoorClosedEvent(event))
@@ -21,8 +30,7 @@ public class HallDoorScenarioProcessor implements SensorEventProcessor {
                 //check either we have reached Door or not
                 if (object instanceof Door){
                     if (hallDoorScenarioEvent(smartHome, event, (Door) object )) {
-                        TurnLightsOffCommand lightsOffCommand = new TurnLightsOffCommand(smartHome);
-                        lightsOffCommand.executeCommand();
+                        turnLightsOff(smartHome);
                     }
                 };
             });
@@ -57,5 +65,18 @@ public class HallDoorScenarioProcessor implements SensorEventProcessor {
 
     private boolean sensorDoorClosedEvent(SensorEvent event){
         return (event.getType() == DOOR_CLOSED);
+    }
+
+    private void turnLightsOff(SmartHome smartHome) {
+        smartHome.execute(object ->
+        {
+            //check either we have reached Light or not
+            if (object instanceof Light){
+                Light light = (Light) object;
+                light.setOn(false);
+                SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
+                CommandSender.sendCommand(command);
+            };
+        });
     }
 }

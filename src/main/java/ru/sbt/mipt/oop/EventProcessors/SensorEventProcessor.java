@@ -5,5 +5,5 @@ import ru.sbt.mipt.oop.SmartHome;
 
 public interface SensorEventProcessor {
 
-    void processor(SmartHome smartHome, SensorEvent event);
+    void processor(SensorEvent event);
 }
