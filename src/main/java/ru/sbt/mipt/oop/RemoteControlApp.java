@@ -9,11 +9,9 @@ import java.util.HashMap;
 public class RemoteControlApp implements RemoteControl {
 
     private HashMap<String, Command> buttonsVocab;
-    private RemoteControlRegistry remoteControlRegistry;
 
     public RemoteControlApp(RemoteControlRegistry remoteControlRegistry) {
         this.buttonsVocab = new HashMap<>();
-        this.remoteControlRegistry = remoteControlRegistry;
     }
 
     public void addCommand(String buttonCode, Command command){

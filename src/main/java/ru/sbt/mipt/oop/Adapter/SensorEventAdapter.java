@@ -1,26 +1,20 @@
 package ru.sbt.mipt.oop.Adapter;
 
 import com.coolcompany.smarthome.events.CCSensorEvent;
-import com.coolcompany.smarthome.events.EventHandler;
-import ru.sbt.mipt.oop.EventProcessors.SensorEventProcessor;
 import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.SensorEventType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SensorEventAdapter extends SensorEvent {
+public class SensorEventAdapter {
 
     private static HashMap<String, SensorEventType> eventAccordance = new HashMap<>();
 
     private final String[] eventTypes = new String[] { "LightIsOn", "LightIsOff",
             "DoorIsOpen", "DoorIsClosed", "DoorIsLocked", "DoorIsUnlocked" };
 
-    public SensorEventAdapter(CCSensorEvent stringEvent) {
-        super(determineType(stringEvent.getEventType()), stringEvent.getObjectId());
-    }
-
-    private static SensorEventType determineType(String event){
+        private static SensorEventType determineType(String event){
         SensorEventType eventType = null;
 
         switch (event){
@@ -64,5 +58,15 @@ public class SensorEventAdapter extends SensorEvent {
         }
 
         return stringEventType;
+    }
+
+    public SensorEvent getEventTypeFromString(CCSensorEvent stringEventType){
+        convertVocab();
+
+        SensorEventType eventType = eventAccordance.get(stringEventType);
+
+        SensorEvent sensorEvent = new SensorEvent(eventType, stringEventType.getObjectId());
+
+        return sensorEvent;
     }
 }

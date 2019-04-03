@@ -15,8 +15,8 @@ public class EventProcessorAdapter implements EventHandler {
 
     @Override
     public void handleEvent(CCSensorEvent stringEvent){
-        //String stringEventType = stringEvent.getEventType();
-        SensorEvent sensorEvent = new SensorEventAdapter(stringEvent);
+        SensorEventAdapter eventAdapter = new SensorEventAdapter();
+        SensorEvent sensorEvent = eventAdapter.getEventTypeFromString(stringEvent);
         eventProcessor.processor(sensorEvent);
     }
 }

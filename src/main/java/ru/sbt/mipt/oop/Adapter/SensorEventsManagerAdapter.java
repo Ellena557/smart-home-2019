@@ -4,10 +4,6 @@ import com.coolcompany.smarthome.events.EventHandler;
 import com.coolcompany.smarthome.events.SensorEventsManager;
 
 import ru.sbt.mipt.oop.EventProcessors.SensorEventProcessor;
-import ru.sbt.mipt.oop.SensorEvent;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class SensorEventsManagerAdapter implements EventsManager {
@@ -17,23 +13,15 @@ public class SensorEventsManagerAdapter implements EventsManager {
     public SensorEventsManagerAdapter(List<SensorEventProcessor> eventProcessors) {
         this.eventsManager = new SensorEventsManager();
 
-        Collection<EventHandler> handlers = new ArrayList<>();
-
-        for (SensorEventProcessor eventProcessor : eventProcessors) {
-            EventHandler handler = new EventProcessorAdapter(eventProcessor);
-            ((ArrayList<EventHandler>) handlers).add(handler);
-        }
-
-        for (EventHandler handler : handlers){
-            this.eventsManager.registerEventHandler(handler);
-        }
+        eventProcessors.forEach(processor -> registerEventProcessor(processor));
     }
 
     @Override
     public void start() {
         this.eventsManager.registerEventHandler(
                 stringEvent -> {
-                    toString(stringEvent.getEventType(), stringEvent.getObjectId());
+                    System.out.println("Event type [" + stringEvent.getEventType() +
+                            "] from object with id=" + stringEvent.getObjectId() + "]");
         });
         this.eventsManager.start();
     }
@@ -42,13 +30,5 @@ public class SensorEventsManagerAdapter implements EventsManager {
     public void registerEventProcessor(SensorEventProcessor eventProcessor) {
         EventHandler handler = new EventProcessorAdapter(eventProcessor);
         this.eventsManager.registerEventHandler(handler);
-    }
-
-
-    public String toString(String type, String objectId) {
-        return "SensorCommand{" +
-                "type=" + type +
-                ", objectId='" + objectId + '\'' +
-                '}';
     }
 }
