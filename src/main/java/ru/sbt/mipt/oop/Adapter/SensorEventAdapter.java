@@ -62,11 +62,8 @@ public class SensorEventAdapter {
 
     public SensorEvent getEventTypeFromString(CCSensorEvent stringEventType){
         convertVocab();
-
         SensorEventType eventType = eventAccordance.get(stringEventType);
-
         SensorEvent sensorEvent = new SensorEvent(eventType, stringEventType.getObjectId());
-
         return sensorEvent;
     }
 }
