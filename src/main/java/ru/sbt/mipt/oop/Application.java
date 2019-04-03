@@ -1,39 +1,14 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.EventCreators.RandomSensorEventCreator;
-import ru.sbt.mipt.oop.EventCreators.SensorEventCreator;
-import ru.sbt.mipt.oop.EventProcessors.SensorEventProcessor;
-
-import java.io.IOException;
-import java.util.Collection;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import ru.sbt.mipt.oop.Adapter.EventsManager;
 
 public class Application {
 
-    public static void main(String... args) throws IOException {
-
-        HomeInitializer homeInitializer = new HomeJsonInitializer();
-
-        // creating a smartHome
-        SmartHome smartHome = homeInitializer.initializeHome();
-
-        //цикл обработки событий
-        processEvents(smartHome);
-    }
-
-    private static void processEvents(SmartHome smartHome) {
-        SensorEventCreator eventCreator = new RandomSensorEventCreator();
-        SensorEvent event = eventCreator.getNextSensorEvent();
-
-        Collection<SensorEventProcessor> eventProcessors = EventProcessorCreator.getNewEventProcessors(smartHome);
-
-        while (event != null) {
-            System.out.println("Got event: " + event);
-
-            for (SensorEventProcessor oneProcessor : eventProcessors) {
-                oneProcessor.processor(event);
-            }
-
-            event = eventCreator.getNextSensorEvent();
-        }
+    public static void main(String[] args) {
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(MyConfiguration.class);
+        EventsManager eventsManager = context.getBean(EventsManager.class);
+        eventsManager.start();
     }
 }
